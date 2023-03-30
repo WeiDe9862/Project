@@ -20,5 +20,11 @@ def number(number):
     print('Type:',type(number))
     return f'{number}'
 
+@app.route("/page")
+def email():
+    email = request.args.get('email')
+    password = request.args.get('password')
+    return f"{email},{password}"
+
 if __name__=='__main__':
     app.run(debug=True)
