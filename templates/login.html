@@ -63,4 +63,16 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
       </div>
     </div>
   </section>
+  {% if type %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+        icon: '錯誤',
+        title: '登入失敗',
+        text: 'Something went wrong!',
+        footer: '<a href="">Why do I have this issue?</a>'
+        })
+    </script>
+  {% endif %}
 {% endblock content %}
+
