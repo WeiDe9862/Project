@@ -21,10 +21,10 @@ def number(number):
     return f'{number}'
 
 @app.route("/page")
-def email():
-    email = request.args.get('email')
-    password = request.args.get('password')
-    return f"{email},{password}"
-
+def page():
+    x="1234"
+    dict1={"abc":1324,"name":"Alex"}
+    return render_template("page.html",x=x,dict1=dict1)
+    
 if __name__=='__main__':
     app.run(debug=True)

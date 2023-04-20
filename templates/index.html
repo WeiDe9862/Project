@@ -1,17 +1,43 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>41141211's Website</title>
-    <link href="{{ url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-</head>
-
-<body>
-    <img src="{{ url_for('static',filename='images/1.jpg')}}">
-</body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
-</html>
+{% extends "layout.html" %}
+   {% block content %}
+    <div class="container-fluid" style="background-color:antiquewhite;">
+        <div class="row mt-3">
+            <div class="col mt-3">
+                <div class="card" style="width: 18rem;">
+                    <img src="../images/1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Cute cat1</h5>
+                        <p class="card-text" style="text-align: center;">This photo is one of cat that I thought it's cute.</p>
+                        <div style="text-align: center;">
+                            <a href="../index.html" class="btn btn-primary" style="background-color: cadetblue;">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>>
+            <div class="col mt-3">
+                <div class="card" style="width: 18rem;">
+                    <img src="../images/2.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Cute cat2</h5>
+                        <p class="card-text" style="text-align: center;">This photo is one of cat that I thought it's cute.</p>
+                        <div style="text-align: center;">
+                            <a href="../index.html" class="btn btn-primary" style="background-color: cadetblue;">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>>
+            <div class="col mt-3">
+                <div class="card" style="width: 18rem;">
+                    <img src="../images/3.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Cute cat3</h5>
+                        <p class="card-text" style="text-align: center;">This photo is one of cat that I thought it's cute.</p>
+                        <div style="text-align: center;">
+                            <a href="../index.html" class="btn btn-primary" style="background-color: cadetblue;">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>>
+        </div>
+    </div>
+    {% endblock content %}
