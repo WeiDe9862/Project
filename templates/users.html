@@ -1,1 +1,23 @@
-{{ data }}
+{% extends 'layout/back.html' %}
+{% block main%}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Number</th>
+        <th scope="col">Name</th>
+        <th scope="col">Account</th>
+        <th scope="col">Password</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in data %}
+      <tr>
+        <th scope="row">{{ i.id }}</th>
+        <td>{{ i.name }}</td>
+        <td>{{ i.account }}</td>
+        <td>{{ i.password }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock main%}
