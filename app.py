@@ -75,9 +75,24 @@ def deleteuser(id):
         #cur.execute('select * from Users')
         #data = cur.fetchall()
         cur.close()
-    flash("刪除成功")
+    flash('刪除成功')
     return redirect(url_for('users'))
     #return render_template("users.html",data = data)
+
+@app.route("/createuser", methods=['POST'])
+def createuser():
+    name = request.form.get('username')
+    if name == '':name = 'User'
+    account = request.form.get('account')
+    password = request.form.get('password')
+    with get_db() as cur:
+        cur.row_factory = sql.Row
+        cur = cur.cursor()
+        cur.execute(f"INSERT INTO Users (name, account, password)VALUES ('{name}','{account}','{password}');")
+        cur.close()
+    flash('新增成功')
+    return redirect(url_for('users'))
+
 
 if __name__=='__main__':
     app.secret_key = "Your Key"

@@ -20,7 +20,7 @@
         <td>
           <div class="row">
             <div class="col">
-              <button type="button" class="btn btn-outline-success mx-4">Revise</button>
+              <button type="button" class="btn btn-outline-success">Revise</button>
             </div>
             <div class="col">
               <form action="/deleteuser/{{ data[i].id }}" method="post">
@@ -33,6 +33,41 @@
       {% endfor %}
     </tbody>
   </table>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
+  Create a new user.
+</button>
+
+{% block modal %}
+
+<!-- Modal -->
+<div class="modal fade modal-lg" id="create" tabindex="-1" aria-labelledby="createLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createLabel">新增使用者</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/createuser" method="post" onsubmit="return CheckSubmit();">
+      <div class="modal-body">
+        <label class="form-label" for="username">使用者名稱</label>
+        <input id="username" class="form-control" name="username"/>
+        <label class="form-label" for="account">使用者帳號</label>
+        <input id="account" class="form-control" name="account"/>
+        <label class="form-label" for="password">使用者密碼</label>
+        <input id="password" class="form-control" name="password" type="password"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+        <button type="submit" class="btn btn-primary">送出</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock modal %}
 
   {% with messages = get_flashed_messages() %}
   {% if messages %}

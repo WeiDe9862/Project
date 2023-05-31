@@ -31,13 +31,13 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
                 <p class="text-white-50 mb-5">Please enter your login and password!</p>
                 <form action="/login" method="post" onsubmit="return CheckSubmit()">
                 <div class="form-outline form-white mb-4">
-                  <label class="form-label" for="typeEmailX">Email</label>
-                  <input id="typeEmailX" class="form-control form-control-lg" name="Account"/>
+                  <label class="form-label" for="account">Email</label>
+                  <input id="account" class="form-control form-control-lg" name="Account"/>
                 </div>
   
                 <div class="form-outline form-white mb-4">
-                  <label class="form-label" for="typePasswordX">Password</label>
-                  <input type="password" id="typePasswordX" class="form-control form-control-lg" name="Password"/>
+                  <label class="form-label" for="password">Password</label>
+                  <input type="password" id="password" class="form-control form-control-lg" name="Password"/>
                 </div>
   
                 <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
@@ -63,28 +63,6 @@ background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 
       </div>
     </div>
   </section>
-
-<script>
-  function CheckSubmit(){
-    let account = document.getElementById('typeEmailX').value.length;
-    let password = document.getElementById('typePasswordX').value.length;
-    if (account == 0 && password == 0){
-      alert('請輸入資料');
-      return false
-    }
-    else if (account == 0){
-      alert('請輸入帳號');
-      return false
-    }
-    else if (password == 0){
-      alert('請輸入密碼');
-      return false
-    }
-    else{
-      return true
-    }
-  }
-</script>
 
   {% if type %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
