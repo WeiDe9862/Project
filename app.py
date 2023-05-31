@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,redirect,url_for,flash
 import sqlite3 as sql
 from flask import g
 
@@ -66,5 +66,19 @@ def users():
         cur.close()
     return render_template("users.html",data = data)
 
+@app.route("/deleteuser/<int:id>",methods=['POST'])
+def deleteuser(id):
+    with get_db() as cur:
+        cur.row_factory = sql.Row
+        cur = cur.cursor()
+        cur.execute(f'DELETE FROM Users where id={id}')
+        #cur.execute('select * from Users')
+        #data = cur.fetchall()
+        cur.close()
+    flash("刪除成功")
+    return redirect(url_for('users'))
+    #return render_template("users.html",data = data)
+
 if __name__=='__main__':
+    app.secret_key = "Your Key"
     app.run(debug=True)
