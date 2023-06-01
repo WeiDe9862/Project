@@ -1,5 +1,9 @@
 {% extends 'layout/back.html' %}
 {% block main%}
+<h1 class="mt-4">管理使用者</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">描述</li>
+</ol>
 <table class="table", style="width: 1000px;">
     <thead>
       <tr>
@@ -20,7 +24,7 @@
         <td>
           <div class="row">
             <div class="col">
-              <button type="button" class="btn btn-outline-success">Revise</button>
+              <a type="button" class="btn btn-outline-success" href="/edit/{{ data[i].id }}">Revise</a>
             </div>
             <div class="col">
               <form action="/deleteuser/{{ data[i].id }}" method="post">
@@ -35,8 +39,8 @@
   </table>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
-  Create a new user.
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#create" style="right: 200px; position: absolute;">
+  新增
 </button>
 
 {% block modal %}
