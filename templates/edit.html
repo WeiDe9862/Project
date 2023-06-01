@@ -1,5 +1,5 @@
 {% extends "layout/back.html" %}
-    {% block main %}
+{% block main %}
     <h1 class="mt-4">修改使用者</h1>
     <form action="/edit/{{data.id}}" method="post" onsubmit="return CheckSubmit();">
     <table style="width: 1000px;">
@@ -33,12 +33,4 @@
         <button type="submit" class="btn btn-outline-primary">送出修改</button>
     </div>
     </form>
-    
-    
-    
-    
-    
-    
-
-    
 {% endblock main %}

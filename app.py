@@ -1,10 +1,14 @@
 from flask import Flask,render_template,request,redirect,url_for,flash
 import sqlite3 as sql
 from flask import g
-
+import os
+import uuid
 DATABASE = 'database.db'
+UPLOAD_FOLDER = 'static/images/'
+ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg' }
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -18,6 +22,12 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
+def allowed_file(filename):
+    x=''
+    if '.' in filename and  filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+        x = filename.rsplit('.',1)[1].lower()
+    return x
+
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
@@ -28,15 +38,24 @@ def index():
 
 @app.route("/login",methods=["GET","POST"])
 def login():
-    if request.method =="POST":
-        name=request.form.get("Account")
-        password = request.form.get("Password")
-        if name=="admin" and password=="1234":
-            type="登入成功"
+    if request.method == "POST":
+        type = '登入失敗'
+        name=request.form.get("account")
+        password = request.form.get("password")
+        with get_db() as cur:
+            cur.row_factory = sql.Row
+            cur = cur.cursor()
+            cur.execute('select * from Users')
+            data = cur.fetchall()
+            cur.close()
+        for i in data:
+            if name == i['account'] and password == i['password']:
+                type = '成功'
+                break
+        if type == '成功':
             return render_template("page2.html",id=name,ps=password,type=type)
         else:
-            type="登入失敗"
-            return render_template('login.html',id=name,ps=password,type=type)
+            return render_template('login.html',type=type)
     else:
         return render_template('login.html')
 
@@ -118,6 +137,21 @@ def edit(id):
             cur.close()
             return render_template("edit.html",data = data)
     #return render_template("users.html",data = data)
+
+@app.route("/upload",methods=['GET','POST'])
+def upload():
+    if request.method == 'POST':
+        f = request.files['file']
+        print(f.filename)
+        f.filename = allowed_file(f.filename)
+        name = str(uuid.uuid4())+"."+f.filename
+        if f.filename == '':
+            type = '附檔名不符'
+        else:
+            type = '新增成功'
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
+        return render_template('upload.html',type=type)
+    return render_template('upload.html')
 
 if __name__=='__main__':
     app.secret_key = "Your Key"

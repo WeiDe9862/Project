@@ -1,4 +1,4 @@
-function success(type,text='你點擊了刪除!'){
+function success(type,text='你點擊了!'){
     Swal.fire(
         type,
         text,
