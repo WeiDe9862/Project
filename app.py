@@ -158,6 +158,16 @@ def upload():
         return render_template('upload.html',type=type)
     return render_template('upload.html')
 
+@app.route("/show")
+def show():
+        with get_db() as cur:
+            cur.row_factory = sql.Row
+            cur = cur.cursor()
+            cur.execute('select * from Pictures')
+            data = cur.fetchall()
+            cur.close()
+        return render_template("show.html",data=data)
+
 if __name__=='__main__':
     app.secret_key = "Your Key"
     app.run(debug=True)
