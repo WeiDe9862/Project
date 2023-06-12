@@ -2,9 +2,8 @@ function success(type,text='你點擊了!'){
     Swal.fire(
         type,
         text,
-        'success'
-    )
-}
+        'Success'
+    )}
 
 function CheckSubmit(){
     let account = document.getElementById('account').value.length;

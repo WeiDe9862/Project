@@ -3,7 +3,9 @@ import sqlite3 as sql
 from flask import g
 import os
 import uuid
+
 DATABASE = 'database.db'
+
 UPLOAD_FOLDER = 'static/images/'
 ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg' }
 
@@ -40,7 +42,7 @@ def index():
 def login():
     if request.method == "POST":
         type = '登入失敗'
-        name=request.form.get("account")
+        name = request.form.get("account")
         password = request.form.get("password")
         with get_db() as cur:
             cur.row_factory = sql.Row
@@ -51,9 +53,7 @@ def login():
         for i in data:
             if name == i['account'] and password == i['password']:
                 type = '成功'
-                break
-        if type == '成功':
-            return render_template("page2.html",id=name,ps=password,type=type)
+                return render_template("page2.html",id=name,ps=password,type=type)
         else:
             return render_template('login.html',type=type)
     else:
@@ -142,13 +142,18 @@ def edit(id):
 def upload():
     if request.method == 'POST':
         f = request.files['file']
-        print(f.filename)
+        #print(f.filename)
         f.filename = allowed_file(f.filename)
         name = str(uuid.uuid4())+"."+f.filename
         if f.filename == '':
             type = '附檔名不符'
         else:
             type = '新增成功'
+            with get_db() as cur:
+                cur.row_factory = sql.Row
+                cur = cur.cursor()
+                cur.execute(f"INSERT INTO Pictures (p_name)VALUES ('{name}');")
+                cur.close()
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
         return render_template('upload.html',type=type)
     return render_template('upload.html')
