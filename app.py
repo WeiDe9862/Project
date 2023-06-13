@@ -192,7 +192,14 @@ def manager_pictures():
                 cur.close()
             flash('修改成功')
         else:
-            pass
+            p_name = request.form.get('p_name')
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], p_name))
+            with get_db() as cur:
+                cur.row_factory = sql.Row
+                cur = cur.cursor()
+                cur.execute(f'DELETE FROM Pictures WHERE id ="{id}";')
+                cur.close()
+            flash('刪除成功')
         return redirect(url_for('pictures'))
 
 if __name__=='__main__':
