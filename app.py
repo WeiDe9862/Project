@@ -158,7 +158,12 @@ def upload():
             with get_db() as cur:
                 cur.row_factory = sql.Row
                 cur = cur.cursor()
-                cur.execute(f"INSERT INTO Pictures (p_name)VALUES ('{name}');")
+                data = cur.execute(f"select * from Pictures")
+                order = 0
+                for i in data:
+                    if i['p_order'] > order:
+                        order = i['p_order']
+                cur.execute(f"INSERT INTO Pictures (p_name,p_order)VALUES ('{name}','{order+1}');")
                 cur.close()
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
         return render_template('upload.html',type=type)

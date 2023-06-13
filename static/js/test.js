@@ -2,7 +2,7 @@ function success(type,text='你點擊了按鈕!'){
     Swal.fire(
         type,
         text,
-        'Success'
+        'success'
     )}
 
 function CheckSubmit(){
