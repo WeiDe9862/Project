@@ -187,26 +187,26 @@ def pictures():
 
 @app.route("/manager_pictures",methods=['POST'])
 def manager_pictures():
-        id = request.form.get('id')
-        fun = request.form.get('fun')
-        if fun == "修改":
-            p_order = request.form.get('p_order')
-            with get_db() as cur:
-                cur.row_factory = sql.Row
-                cur = cur.cursor()
-                cur.execute(f'UPDATE Pictures SET p_order="{ p_order }" WHERE id = "{id}";')
-                cur.close()
-            flash('修改成功')
-        else:
-            p_name = request.form.get('p_name')
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], p_name))
-            with get_db() as cur:
-                cur.row_factory = sql.Row
-                cur = cur.cursor()
-                cur.execute(f'DELETE FROM Pictures WHERE id ="{id}";')
-                cur.close()
-            flash('刪除成功')
-        return redirect(url_for('pictures'))
+    id = request.form.get('id')
+    fun = request.form.get('fun')
+    if fun == "修改":
+        p_order = request.form.get('p_order')
+        with get_db() as cur:
+            cur.row_factory = sql.Row
+            cur = cur.cursor()
+            cur.execute(f'UPDATE Pictures SET p_order="{ p_order }" WHERE id = "{id}";')
+            cur.close()
+        flash('修改成功')
+    else:
+        p_name = request.form.get('p_name')
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], p_name))
+        with get_db() as cur:
+            cur.row_factory = sql.Row
+            cur = cur.cursor()
+            cur.execute(f'DELETE FROM Pictures WHERE id ="{id}";')
+            cur.close()
+        flash('刪除成功')
+    return redirect(url_for('pictures'))
 
 if __name__=='__main__':
     app.secret_key = "Your Key"
