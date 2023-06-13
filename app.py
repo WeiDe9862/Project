@@ -3,6 +3,7 @@ import sqlite3 as sql
 from flask import g
 import os
 import uuid
+import hashlib
 
 DATABASE = 'database.db'
 
@@ -30,6 +31,8 @@ def allowed_file(filename):
         x = filename.rsplit('.',1)[1].lower()
     return x
 
+def sha256(data):
+    return hashlib.sha256(data.encode('utf-8')).hexdigest()
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
@@ -44,6 +47,7 @@ def login():
         type = '登入失敗'
         name = request.form.get("account")
         password = request.form.get("password")
+        password = sha256(password)
         with get_db() as cur:
             cur.row_factory = sql.Row
             cur = cur.cursor()
@@ -104,6 +108,7 @@ def createuser():
     if name == '':name = 'User'
     account = request.form.get('account')
     password = request.form.get('password')
+    password = sha256(password)
     with get_db() as cur:
         cur.row_factory = sql.Row
         cur = cur.cursor()
@@ -118,6 +123,7 @@ def edit(id):
         name = request.form.get('username')
         account = request.form.get('account')
         password = request.form.get('password')
+        password = sha256(password)
         with get_db() as cur:
             cur.row_factory = sql.Row
             cur = cur.cursor()
