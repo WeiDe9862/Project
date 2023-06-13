@@ -184,9 +184,12 @@ def pictures():
         with get_db() as cur:
             cur.row_factory = sql.Row
             cur = cur.cursor()
-            cur.execute('select * from Pictures')
+            cur.execute('select * from Pictures order by p_order')
             data = cur.fetchall()
             length = len(data)
+            for i in data:
+                if i['p_order'] > length:
+                    length = i['p_order']
             cur.close()
         return render_template("pictures.html",data=data,len=length)
 
