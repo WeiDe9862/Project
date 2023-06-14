@@ -45,7 +45,7 @@ def index():
 def login():
     if request.method == "POST":
         type = '登入失敗'
-        name = request.form.get("account")
+        account = request.form.get("account")
         password = request.form.get("password")
         password = sha256(password)
         with get_db() as cur:
@@ -55,14 +55,30 @@ def login():
             data = cur.fetchall()
             cur.close()
         for i in data:
-            if name == i['account'] and password == i['password']:
+            if account == i['account'] and password == i['password']:
                 type = '成功'
-                return render_template("page2.html",id=name,ps=password,type=type)
+                return render_template("page2.html",id=account,ps=password,type=type)
         else:
             return render_template('login.html',type=type)
     else:
         return render_template('login.html')
 
+@app.route("/sign",methods=["GET","POST"])
+def sign():
+    name = request.form.get('name')
+    if name == '':
+        name = 'User'
+    account = request.form.get('account')
+    password = request.form.get('password')
+    with get_db() as cur:
+        cur.row_factory = sql.Row
+        cur = cur.cursor()
+        cur.execute(f"INSERT INTO Users (name, account, password)VALUES ('{name}','{account}','{password}');")
+        data = cur.fetchall()
+        cur.close()
+    flash('註冊成功')
+    return render_template('sign.html')
+    
 @app.route("/name/<name>")
 def name(name):
     print('Type:',type(name))

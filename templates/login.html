@@ -4,75 +4,67 @@
 
 {% block header %}
 <style>
-.gradient-custom {
-/* fallback for old browsers */
-background: #6a11cb;
+  .gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
 
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
 
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
-}
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+  }
 </style>
 {% endblock header %}
 
 {% block content %}
 <section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
-  
-              <div class="mb-md-5 mt-md-4 pb-5">
-  
-                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                <p class="text-white-50 mb-5">Please enter your login and password!</p>
-                <form action="/login" method="post" onsubmit="return CheckSubmit()">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            <div class="mb-md-5 mt-md-4 pb-5">
+              <h2 class="fw-bold mb-2 text-uppercase">登入</h2>
+              <p class="text-white-50 mb-5">請輸入您的帳號與密碼！</p>
+              <form action="/login" method="POST" onsubmit="return CheckSubmit();">
                 <div class="form-outline form-white mb-4">
-                  <label class="form-label" for="account">Email</label>
-                  <input id="account" class="form-control form-control-lg" name="account"/>
+                  <label class="form-label" for="account">帳號</label>
+                  <input id="account" class="form-control form-control-lg" name="account" />
                 </div>
-  
                 <div class="form-outline form-white mb-4">
-                  <label class="form-label" for="password">Password</label>
-                  <input type="password" id="password" class="form-control form-control-lg" name="password"/>
+                  <label class="form-label" for="password">密碼</label>
+                  <input type="password" id="password" class="form-control form-control-lg" name="password" />
                 </div>
-  
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-  
-                <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-                </form>
-                <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                  <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                  <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-                  <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
-                </div>
-  
+                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">忘記密碼？</a></p>
+                <button type="submit" class="btn btn-outline-light btn-lg px-5">登入</button>
+              </form>
+              <div class="d-flex justify-content-center text-center mt-4 pt-1">
+                <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+                <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
               </div>
-  
-              <div>
-                <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
-                </p>
-              </div>
-  
+            </div>
+            <div>
+              <p class="mb-0">沒有帳號嗎？<a href="#!" class="text-white-50 fw-bold">註冊</a>
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  {% if type %}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        Swal.fire({
-        icon: '錯誤',
-        title: '登入失敗',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
-        })
-    </script>
-  {% endif %}
+{% if type %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  Swal.fire({
+    icon: 'error',
+    title: '登入失敗',
+    text: 'Something went wrong!',
+    footer: '<a href="">Why do I have this issue?</a>'
+  })
+</script>
+{% endif %}
 {% endblock content %}
