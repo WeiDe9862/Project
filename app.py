@@ -47,7 +47,8 @@ def login():
         type = '登入失敗'
         account = request.form.get("account")
         password = request.form.get("password")
-        password = sha256(password)
+        if password != "":
+            password = sha256(password)
         with get_db() as cur:
             cur.row_factory = sql.Row
             cur = cur.cursor()
@@ -59,7 +60,7 @@ def login():
                 type = '成功'
                 return render_template("page2.html",id=account,ps=password,type=type)
         else:
-            return render_template('login.html',type=type)
+            return render_template('login.html',id=account,ps=password,type=type)
     else:
         return render_template('login.html')
 
@@ -77,7 +78,7 @@ def sign():
         data = cur.fetchall()
         cur.close()
     flash('註冊成功')
-    return render_template('sign.html')
+    return render_template('sign.html',type=type)
     
 @app.route("/name/<name>")
 def name(name):

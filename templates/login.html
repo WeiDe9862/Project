@@ -46,7 +46,7 @@
               </div>
             </div>
             <div>
-              <p class="mb-0">沒有帳號嗎？<a href="#!" class="text-white-50 fw-bold">註冊</a>
+              <p class="mb-0">沒有帳號嗎？<a href="/sign" class="text-white-50 fw-bold">註冊</a>
               </p>
             </div>
           </div>
@@ -57,14 +57,48 @@
 </section>
 
 {% if type %}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-  Swal.fire({
-    icon: 'error',
-    title: '登入失敗',
-    text: 'Something went wrong!',
-    footer: '<a href="">Why do I have this issue?</a>'
-  })
-</script>
+  {% if id == ''%}
+    {% if ps == ''%}
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+        Swal.fire({
+          icon: 'error',
+          title: '登入失敗',
+          text: '請輸入帳號及密碼！',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
+      </script>
+    {% else %}
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+        Swal.fire({
+          icon: 'error',
+          title: '登入失敗',
+          text: '請輸入帳號！',
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
+      </script>
+    {% endif %}
+  {% elif ps == ''%}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: '登入失敗',
+        text: '請輸入密碼！',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    </script>
+    {% else %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: '登入失敗',
+        text: '帳號密碼錯誤，再檢查一下！',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    </script>
+  {% endif %}
 {% endif %}
 {% endblock content %}
