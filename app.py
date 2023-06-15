@@ -66,19 +66,38 @@ def login():
 
 @app.route("/sign",methods=["GET","POST"])
 def sign():
-    name = request.form.get('name')
-    if name == '':
-        name = 'User'
-    account = request.form.get('account')
-    password = request.form.get('password')
-    with get_db() as cur:
-        cur.row_factory = sql.Row
-        cur = cur.cursor()
-        cur.execute(f"INSERT INTO Users (name, account, password)VALUES ('{name}','{account}','{password}');")
-        data = cur.fetchall()
-        cur.close()
-    flash('註冊成功')
-    return render_template('sign.html',type=type)
+    if request.method == "POST":
+        name = request.form.get('name')
+        if name == '':
+            name = 'User'
+        account = request.form.get('account')
+        password = request.form.get('password')
+        if account != "" and password != "": #無空值
+            type="註冊失敗"
+            with get_db() as cur: #把data拿出來
+                cur.row_factory = sql.Row
+                cur = cur.cursor()
+                data = cur.fetchall()
+                cur.close()
+            for i in data: #判斷是否已註冊 #無法判斷是否有在資料庫
+                if account == i['account']:
+                    type="註冊失敗"
+                    return render_template('sign.html',id=account,ps=password,type=type)
+            else:
+                type="註冊成功"
+                password = sha256(password)
+                with get_db() as cur:
+                    cur.row_factory = sql.Row
+                    cur = cur.cursor()
+                    cur.execute(f"INSERT INTO Users (name, account, password)VALUES ('{name}','{account}','{password}');")
+                    data = cur.fetchall()
+                    cur.close()
+            return render_template('sign.html',id=account,ps=password,type=type)
+        else: #空值
+            type="註冊失敗"
+            return render_template('sign.html',id=account,ps=password,type=type)
+    else:
+        return render_template('sign.html')
     
 @app.route("/name/<name>")
 def name(name):

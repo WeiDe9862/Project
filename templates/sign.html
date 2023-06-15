@@ -58,17 +58,48 @@
     </div>
 </section>
 
-{% if type %}
-    
-{% else %}
+{% if type == "註冊失敗" %}
+    {% if id == ''%}
+        {% if ps == ''%}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+            icon: 'error',
+            title: '註冊失敗',
+            text: '請輸入帳號及密碼！',
+            footer: '<a href="">Why do I have this issue?</a>'
+            })
+        </script>
+        {% else %}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+            icon: 'error',
+            title: '註冊失敗',
+            text: '請輸入帳號！',
+            footer: '<a href="">Why do I have this issue?</a>'
+            })
+        </script>
+        {% endif %}
+    {% elif ps == ''%}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        Swal.fire({
-            icon: 'Error',
-            title: '註冊失敗',
-            text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>'
-        })
+    Swal.fire({
+        icon: 'error',
+        title: '註冊失敗',
+        text: '請輸入密碼！',
+        footer: '<a href="">Why do I have this issue?</a>'
+    })
     </script>
+    {% endif %}
+{% elif type == "註冊成功" %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    Swal.fire(
+        "註冊成功",
+        "已註冊",
+        'success'
+    )
+    </script>   
 {% endif %}
 {% endblock content %}
