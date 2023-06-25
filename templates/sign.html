@@ -91,8 +91,18 @@
         footer: '<a href="">Why do I have this issue?</a>'
     })
     </script>
+    {% else %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    Swal.fire({
+        icon: 'error',
+        title: '註冊失敗',
+        text: '重複',
+        footer: '<a href="">Why do I have this issue?</a>'
+    })
+    </script>
     {% endif %}
-{% elif type == "註冊成功" %}
+{% else %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
     Swal.fire(

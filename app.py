@@ -78,21 +78,15 @@ def sign():
                 cur.row_factory = sql.Row
                 cur = cur.cursor()
                 data = cur.fetchall()
-                cur.close()
-            for i in data: #判斷是否已註冊 #無法判斷是否有在資料庫
-                if account == i['account']:
-                    type="註冊失敗"
-                    return render_template('sign.html',id=account,ps=password,type=type)
-            else:
-                type="註冊成功"
-                password = sha256(password)
-                with get_db() as cur:
-                    cur.row_factory = sql.Row
-                    cur = cur.cursor()
+                for i in data: #判斷是否已註冊 #無法判斷是否有在資料庫
+                    if account == i['account']:
+                        return render_template('sign.html',id=account,ps=password,type=type)
+                else:
+                    type="註冊成功"
+                    password = sha256(password)
                     cur.execute(f"INSERT INTO Users (name, account, password)VALUES ('{name}','{account}','{password}');")
-                    data = cur.fetchall()
                     cur.close()
-            return render_template('sign.html',id=account,ps=password,type=type)
+                    return render_template('sign.html',id=account,ps=password,type=type)
         else: #空值
             type="註冊失敗"
             return render_template('sign.html',id=account,ps=password,type=type)
